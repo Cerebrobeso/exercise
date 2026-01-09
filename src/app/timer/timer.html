@@ -1,0 +1,16 @@
+<div class="container flex flex-col items-center justify-center mt-16">
+  <div class="w-37.5">
+    <div class="w-full timer border rounded-lg px-4 py-2 mb-4 text-right">
+      {{ time() }}
+    </div>
+
+    <div class="flex justify-between gap-3">
+      @if (pauseTimer$()) {
+        <button class="cursor-pointer" (click)="startTimer()" hlmBtn>Start</button>
+      } @else {
+        <button class="cursor-pointer" (click)="pauseTimer()" hlmBtn>Pause</button>
+      }
+      <button class="cursor-pointer" (click)="stopTimer()" hlmBtn>Stop</button>
+    </div>
+  </div>
+</div>

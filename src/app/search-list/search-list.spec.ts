@@ -8,9 +8,8 @@ describe('SearchList', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchList]
-    })
-    .compileComponents();
+      imports: [SearchList],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SearchList);
     component = fixture.componentInstance;

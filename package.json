@@ -1,5 +1,5 @@
 {
-  "name": "exam",
+  "name": "exercise-2",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -21,7 +21,7 @@
     ]
   },
   "private": true,
-  "packageManager": "npm@11.4.1",
+  "packageManager": "npm@11.7.0",
   "dependencies": {
     "@angular/cdk": "21.0.0",
     "@angular/common": "^21.0.0",
@@ -42,8 +42,8 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular/build": "^21.0.5",
-    "@angular/cli": "^21.0.5",
+    "@angular/build": "^21.0.3",
+    "@angular/cli": "^21.0.3",
     "@angular/compiler-cli": "^21.0.0",
     "@spartan-ng/cli": "^0.0.1-alpha.600",
     "@tailwindcss/postcss": "^4.1.12",
