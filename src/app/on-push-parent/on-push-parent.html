@@ -1,0 +1,15 @@
+<div class="container flex flex-col items-center mt-16">
+  <h1 class="text-3xl bold mb-6">On push detection</h1>
+  <div class="flex w-[400px] justify-around">
+    <button class="cursor-pointer mb-6" (click)="addUserPush()" hlmBtn>Add push</button>
+    <button class="cursor-pointer mb-6" (click)="addUserReassign()" hlmBtn>Add reassign</button>
+    <button class="cursor-pointer mb-6" (click)="addUserSignal()" hlmBtn>Add signal</button>
+  </div>
+  <p class="text-sm text-gray-500">Note that when "add push" is pressed nothing happen, when the other buttons are pressed the arrays are updated.</p>
+  <app-on-push-child
+    [usersPush]="usersPush"
+    [usersReassign]="usersReassign"
+    [users$]="users$()"
+  ></app-on-push-child>
+
+</div>

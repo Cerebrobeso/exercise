@@ -11,8 +11,9 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './timer.css',
 })
 export class Timer {
+  private days = computed(() => Math.floor(this.elapsedTime() / 86400).toString());
   private hours = computed(() =>
-    Math.floor(this.elapsedTime() / 3600)
+    Math.floor((this.elapsedTime() / 3600) % 24)
       .toString()
       .padStart(2, '0'),
   );
@@ -26,7 +27,7 @@ export class Timer {
   private timer = interval(1000).pipe(tap(() => this.elapsedTime.update((value) => value + 1)));
   private timer$: any;
 
-  public time = computed(() => `${this.hours()}:${this.minutes()}:${this.seconds()}`);
+  public time = computed(() => `${this.days()} ${this.days() === '1' ? 'day': 'days'} ${this.hours()}:${this.minutes()}:${this.seconds()}`);
 
   constructor() {}
 

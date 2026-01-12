@@ -1,0 +1,20 @@
+<div class="flex flex-row w-full justify-around">
+  <div class="border-r px-8">
+    <h2 class="text-2xl bold mt-3">Array con push</h2>
+    @for (user of usersPush; track user.username + 'array-push') {
+      <p>{{ user.username }}</p>
+    }
+  </div>
+  <div class="border-r px-8">
+    <h2 class="text-2xl bold mt-3">Array con riassegnazione</h2>
+    @for (user of usersReassign; track user.username + 'array-reassign') {
+      <p>{{ user.username }}</p>
+    }
+  </div>
+  <div class="px-8">
+    <h2 class="text-2xl bold mt-3">Signal</h2>
+    @for (user of users$(); track user.username + 'array-push' + '-signal') {
+      <p>{{ user.username }}</p>
+    }
+  </div>
+</div>
