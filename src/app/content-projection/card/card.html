@@ -1,0 +1,19 @@
+<div hlmCard class="min-w-[300px]">
+  <div hlmCardHeader>
+    <h3 hlmCardTitle>
+      <ng-content select="card-title" />
+    </h3>
+    <p hlmCardDescription>
+      <ng-content select="card-description" />
+    </p>
+    <div hlmCardAction>
+      <ng-content select="card-buttons" />
+    </div>
+  </div>
+  <div hlmCardContent>
+    <ng-content select="card-content" />
+  </div>
+  <div hlmCardFooter>
+    <ng-content select="card-footer" />
+  </div>
+</div>
