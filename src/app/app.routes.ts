@@ -4,6 +4,7 @@ import { Timer } from './timer/timer';
 import {Exercise} from './exercise/exercise';
 import {OnPushParent} from './on-push-parent/on-push-parent';
 import {ContentProjection} from './content-projection/content-projection';
+import {MemoryLeaks} from './memory-leaks/memory-leaks';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
   {
     path: 'content-projection',
     component: ContentProjection,
+  },
+  {
+    path: 'memory-leaks',
+    component: MemoryLeaks,
   },
   {
     path: '',

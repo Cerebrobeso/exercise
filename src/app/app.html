@@ -1,28 +1,33 @@
-<nav hlmNavigationMenu class="fixed p-4 w-full top-0 right-0 left-0 max-w-full">
-  <ul hlmNavigationMenuList class="w-full flex justify-center gap-3">
-    <li hlmNavigationMenuItem>
-      <button class="border cursor-pointer" hlmNavigationMenuTrigger routerLink="/search-list" [routerLinkActive]="['bg-black', 'text-white']">
+<nav class="p-4 w-full max-w-full">
+  <ul class="w-full flex justify-center gap-3">
+    <li>
+      <button hlmBtn class="border cursor-pointer" variant="outline" routerLink="/search-list" [routerLinkActive]="['bg-black', 'text-white']">
         List
       </button>
     </li>
-    <li hlmNavigationMenuItem>
-      <button class="border cursor-pointer" hlmNavigationMenuTrigger routerLink="/timer" [routerLinkActive]="['bg-black', 'text-white']">
+    <li>
+      <button hlmBtn class="border cursor-pointer" variant="outline" routerLink="/timer" [routerLinkActive]="['bg-black', 'text-white']">
         Timer
       </button>
     </li>
-    <li hlmNavigationMenuItem>
-      <button class="border cursor-pointer" hlmNavigationMenuTrigger routerLink="/exercise" [routerLinkActive]="['bg-black', 'text-white']">
+    <li>
+      <button hlmBtn class="border cursor-pointer" variant="outline" routerLink="/exercise" [routerLinkActive]="['bg-black', 'text-white']">
         Exercise
       </button>
     </li>
-    <li hlmNavigationMenuItem>
-      <button class="border cursor-pointer" hlmNavigationMenuTrigger routerLink="/on-push" [routerLinkActive]="['bg-black', 'text-white']">
+    <li>
+      <button hlmBtn class="border cursor-pointer" variant="outline" routerLink="/on-push" [routerLinkActive]="['bg-black', 'text-white']">
         On push
       </button>
     </li>
-    <li hlmNavigationMenuItem>
-      <button class="border cursor-pointer" hlmNavigationMenuTrigger routerLink="/content-projection" [routerLinkActive]="['bg-black', 'text-white']">
+    <li>
+      <button hlmBtn class="border cursor-pointer" variant="outline" routerLink="/content-projection" [routerLinkActive]="['bg-black', 'text-white']">
         Content projection
+      </button>
+    </li>
+    <li>
+      <button hlmBtn class="border cursor-pointer" variant="outline" routerLink="/memory-leaks" [routerLinkActive]="['bg-black', 'text-white']">
+        Memory leaks
       </button>
     </li>
   </ul>
