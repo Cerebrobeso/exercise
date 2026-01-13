@@ -5,6 +5,7 @@ import {Exercise} from './exercise/exercise';
 import {OnPushParent} from './on-push-parent/on-push-parent';
 import {ContentProjection} from './content-projection/content-projection';
 import {MemoryLeaks} from './memory-leaks/memory-leaks';
+import {Cart} from './cart/cart';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,10 @@ export const routes: Routes = [
   {
     path: 'memory-leaks',
     component: MemoryLeaks,
+  },
+  {
+    path: 'cart',
+    component: Cart,
   },
   {
     path: '',

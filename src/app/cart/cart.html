@@ -1,0 +1,205 @@
+<div class="container flex flex-col items-center mt-16">
+  <div
+    class="w-full sticky top-0 z-10 bg-white backdrop-blur bg-background/95 supports-[backdrop-filter]:bg-background/60"
+  >
+    <h1 class="text-3xl bold mb-3 text-center">
+      Cart
+    </h1>
+    <p class="text-sm text-gray-500 mb-6 text-center">
+      List of products with cart service.
+    </p>
+    <hlm-popover align="end" sideOffset="5">
+      <button class="absolute right-0 top-5 cursor-pointer" hlmBtn hlmPopoverTrigger variant="outline">
+        <ng-icon hlm name="lucideShoppingCart" size="sm"/>
+        {{ cartItemsTotal() | euroCurrency }} <span>{{ cartItemsCountText() }}</span>
+      </button>
+      <div *brnPopoverContent="let ctx" class="w-[400px]" hlmPopoverContent>
+        <div class="flex flex-row justify-between">
+        <h3 class="text-2xl mb-3">Cart</h3>
+          <hlm-alert-dialog>
+
+            <button
+              id="edit-profile" hlmAlertDialogTrigger
+              class="cursor-pointer text-red-600"
+              variant="ghost"
+              [disabled]="cartItemsCount() <= 0"
+              hlmBtn
+            >
+              Clear
+            </button>
+            <hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
+              <hlm-alert-dialog-header>
+                <h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>
+                <p hlmAlertDialogDescription>
+                  This action cannot be undone. This will permanently delete your cart's items.
+                </p>
+              </hlm-alert-dialog-header>
+              <hlm-alert-dialog-footer>
+                <button hlmAlertDialogCancel (click)="ctx.close()">Cancel</button>
+                <button hlmAlertDialogAction (click)="ctx.close(); clearCart()">Continue</button>
+              </hlm-alert-dialog-footer>
+            </hlm-alert-dialog-content>
+          </hlm-alert-dialog>
+        </div>
+        <div hlmItemGroup class="flex flex-col gap-4 max-h-[450px] overflow-y-scroll">
+          @for (product of cartItems$(); track product.id + '-cart'; let last = $last) {
+            <div hlmItem size="sm">
+              <div class="border" hlmItemMedia variant="image">
+                <img
+                  [alt]="product.title"
+                  [ngSrc]="product.image"
+                  class="object-cover grayscale"
+                  height="32"
+                  width="32"
+                />
+              </div>
+              <div class="flex flex-col gap-2" hlmItemContent>
+                <div hlmItemTitle>
+                  {{ product.title }}
+                </div>
+                <p hlmItemDescription>{{ (product.price) | euroCurrency }}</p>
+                <p class="text-black text-lg font-bold text-end"
+                   hlmItemDescription>{{ (product.price * product.quantity) | euroCurrency }}</p>
+                <div class="flex justify-end gap-2">
+
+                  <button
+                    (click)="removeFromCart(product)"
+                    class="text-red-600 cursor-pointer"
+                    hlmBtn
+                    variant="ghost"
+                  >
+                    <ng-icon hlm name="lucideTrash" size="sm"/>
+                  </button>
+
+                  <div class="max-w-[150px]" hlmInputGroup>
+                    <div hlmInputGroupAddon>
+                      <button
+                        (click)="decrement(product)"
+                        [disabled]="product.quantity <= 1"
+                        class="cursor-pointer"
+                        hlmInputGroupButton
+                        variant="ghost"
+                      >
+                        <ng-icon hlm name="lucideMinus" size="sm"/>
+                      </button>
+                    </div>
+
+                    <input
+                      (input)="onInput(product, $event)"
+                      [value]="product.quantity"
+                      class="text-end cursor-pointer"
+                      hlmInputGroupInput
+                      min="1"
+                      type="number"
+                    />
+
+                    <div align="inline-end" hlmInputGroupAddon>
+                      <button
+                        (click)="increment(product)"
+                        class="cursor-pointer"
+                        hlmInputGroupButton
+                        variant="ghost"
+                      >
+                        <ng-icon hlm name="lucidePlus" size="sm"/>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @if (!last) {
+              <div hlmItemSeparator></div>
+            }
+          } @empty {
+            <div hlmItem variant="muted">
+              <div hlmItemContent>
+                <p hlmItemDescription> No item added in cart.
+                </p>
+              </div>
+            </div>
+          }
+        </div>
+        <div hlmItemSeparator></div>
+
+        <div class="flex flex-col gap-2">
+          <div class="flex flex-row justify-between">
+            <span class="text-gray-700 text-sm">Subtotal</span>
+            <span class="font-bold text-sm">{{cartItemsTotal() | euroCurrency}}</span>
+          </div>
+
+          <div class="flex flex-row justify-between">
+            <span class="text-gray-700 text-sm">Tax</span>
+            <span class="font-bold text-sm">{{tax() | euroCurrency}}</span>
+          </div>
+
+          <div class="flex flex-row justify-between">
+            <span class="text-gray-700 text-sm">Shipping cost</span>
+            <span class="font-bold text-sm">{{shippingCost() | euroCurrency}}</span>
+          </div>
+          <div hlmItemSeparator></div>
+
+          <div class="flex flex-row justify-between">
+            <span class="text-gray-700 text-md">Total</span>
+            <span class="font-bold text-lg">{{total() | euroCurrency}}</span>
+          </div>
+
+        </div>
+        <button
+          class="bg-blue-700 text-white w-full mt-4 cursor-pointer"
+          [disabled]="cartItemsCount() <= 0"
+          hlmBtn
+        >
+          Buy now
+        </button>
+      </div>
+    </hlm-popover>
+  </div>
+  <div class="list flex flex-col max-h-1/2 overflow-y-auto gap-2 pb-4">
+    @if (loader$()) {
+      <div class="text-center">
+        <hlm-spinner icon="lucideLoader"/>
+      </div>
+    } @else {
+      @for (product of products$(); track product.id) {
+        <div hlmItem variant="outline">
+          <div class="border" hlmItemMedia variant="image">
+            <img
+              [alt]="product.title"
+              [ngSrc]="product.image"
+              class="object-cover grayscale"
+              height="32"
+              width="32"
+            />
+          </div>
+          <div hlmItemContent>
+            <div hlmItemTitle>
+              {{ product.title }}
+            </div>
+            <p hlmItemDescription>
+              {{ product.description }}
+            </p>
+          </div>
+
+
+          <div class="flex-none text-center" hlmItemContent>
+            <p class="text-black text-lg font-bold"
+               hlmItemDescription>{{ product.price | euroCurrency }}</p>
+          </div>
+
+          <div hlmItemActions>
+            <button (click)="addToCart(product)" class="cursor-pointer" hlmBtn size="sm" variant="outline">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <div hlmItem variant="muted">
+          <div hlmItemContent>
+            <div hlmItemTitle>Ops!</div>
+            <p hlmItemDescription>No products in list.</p>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>
