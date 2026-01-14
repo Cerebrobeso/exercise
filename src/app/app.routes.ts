@@ -6,6 +6,7 @@ import {OnPushParent} from './on-push-parent/on-push-parent';
 import {ContentProjection} from './content-projection/content-projection';
 import {MemoryLeaks} from './memory-leaks/memory-leaks';
 import {Cart} from './cart/cart';
+import {ReactIntegration} from './react-integration/react-integration';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,10 @@ export const routes: Routes = [
   {
     path: 'cart',
     component: Cart,
+  },
+  {
+    path: 'react-integration',
+    component: ReactIntegration,
   },
   {
     path: '',

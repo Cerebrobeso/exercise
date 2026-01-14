@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -12,7 +13,9 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
+    "jsx": "react-jsx",
     "paths": {
+      "@/*": ["./*"],
       "@spartan-ng/helm/accordion": [
         "./libs/ui/accordion/src/index.ts"
       ],
