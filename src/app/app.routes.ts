@@ -7,6 +7,7 @@ import {ContentProjection} from './content-projection/content-projection';
 import {MemoryLeaks} from './memory-leaks/memory-leaks';
 import {Cart} from './cart/cart';
 import {ReactIntegration} from './react-integration/react-integration';
+import {AccessControl} from '@/src/app/access-control/access-control';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,10 @@ export const routes: Routes = [
   {
     path: 'react-integration',
     component: ReactIntegration,
+  },
+  {
+    path: 'access-control',
+    component: AccessControl,
   },
   {
     path: '',

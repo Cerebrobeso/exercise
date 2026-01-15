@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoggerService } from './logger.service';
+import {toast} from 'ngx-sonner';
 
 @Injectable()
 export class ApiLoggerService implements LoggerService {
@@ -9,5 +10,16 @@ export class ApiLoggerService implements LoggerService {
   }
   error(message: string): void {
     console.warn(`[REPORTING CRITICAL ERROR]: ${message}`);
+  }
+  toastSuccess(message: string) {
+    toast.success(message)
+  }
+
+  toastWarning(message: string) {
+    toast.warning(message)
+  }
+
+  toastError(message: string) {
+    toast.error(message)
   }
 }

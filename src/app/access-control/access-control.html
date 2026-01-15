@@ -1,0 +1,130 @@
+<div class="container flex flex-col items-center mt-16">
+  <div
+    class="w-full sticky top-0 z-10 bg-white backdrop-blur bg-background/95 supports-[backdrop-filter]:bg-background/60"
+  >
+    <h1 class="text-3xl bold mb-3 text-center">
+      Access control
+    </h1>
+
+    <p class="text-sm text-gray-500 mb-6 text-center">
+      Directive to manage user's permissions.
+    </p>
+
+    <div class="w-full flex justify-center gap-4 mb-8">
+      <div class="flex flex-col gap-2 text-center border rounded-md p-3 cursor-pointer select-none
+         transition-all duration-200 hover:bg-gray-300 hover:scale-102
+         active:scale-95 active:bg-gray-300" [cdkCopyToClipboard]="'admin@test.com'">
+        <p class="font-bold text-md">{{ 'admin@test.com' }}</p>
+        <p class="text-sm text-gray-500">ADMIN</p>
+      </div>
+      <div class="flex flex-col gap-2 text-center border rounded-md p-3 cursor-pointer select-none
+         transition-all duration-200 hover:bg-gray-300 hover:scale-102
+         active:scale-95 active:bg-gray-300" [cdkCopyToClipboard]="'user@test.com'">
+        <p class="font-bold text-md">{{ 'user@test.com' }}</p>
+        <p class="text-sm text-gray-500">USER</p>
+      </div>
+      <div class="flex flex-col gap-2 text-center border rounded-md p-3 cursor-pointer select-none
+         transition-all duration-200 hover:bg-gray-300 hover:scale-102
+         active:scale-95 active:bg-gray-300" [cdkCopyToClipboard]="'guest@test.com'">
+        <p class="font-bold text-md">{{ 'guest@test.com' }}</p>
+        <p class="text-sm text-gray-500">GUEST</p>
+      </div>
+    </div>
+  </div>
+
+  @if (isAuthenticated()) {
+    <div class="w-full flex justify-center align-center">
+      <ng-template appAccessControlDirective [userRole]="user()?.role" [accessRole]="roles.ADMIN">
+      <div class="border-blue-700 border-3 p-5 rounded-md">
+        <h2 class="text-xl bold mb-3 text-center">
+          Welcome to {{user()?.username}}
+        </h2>
+        <p class="text-center">Your role is ADMIN</p>
+      </div>
+      </ng-template>
+      <ng-template appAccessControlDirective [userRole]="user()?.role" [accessRole]="roles.USER">
+      <div class="border-green-600 border-3 p-5 rounded-md">
+        <h2 class="text-xl bold mb-3 text-center">
+          Welcome to {{user()?.username}}
+        </h2>
+        <p class="text-center">Your role is USER</p>
+      </div>
+      </ng-template>
+
+        <ng-template appAccessControlDirective [userRole]="user()?.role" [accessRole]="roles.GUEST">
+      <div class="border-orange-600 border-3 p-5 rounded-md">
+        <h2 class="text-xl bold mb-3 text-center">
+          Welcome to {{user()?.username}}
+        </h2>
+        <p class="text-center">Your role is GUEST</p>
+      </div>
+        </ng-template>
+    </div>
+
+    <div class="w-full flex justify-center align-center">
+      <button hlmBtn (click)="logout()" class="mt-4 cursor-pointer" variant="destructive">Logout</button>
+    </div>
+  } @else {
+    <div class="w-full flex justify-center align-center">
+      <form (ngSubmit)="login()" [formGroup]="loginForm" class="w-full max-w-87.5 space-y-6">
+        <!-- Email Field -->
+        <hlm-form-field>
+          <label for="email" hlmLabel>Email</label>
+          <input
+            [class.border-destructive]="isFieldInvalid('email')"
+            formControlName="username"
+            hlmInput
+            id="email"
+            placeholder="email@esempio.com"
+            type="email"
+          />
+          @if (isFieldInvalid('email')) {
+            <p class="text-sm text-destructive mt-1">
+              @if (loginForm.get('email')?.errors?.['required']) {
+                L'email è obbligatoria
+              }
+              @if (loginForm.get('email')?.errors?.['email']) {
+                Inserisci un'email valida
+              }
+            </p>
+          }
+        </hlm-form-field>
+
+        <!-- Password Field -->
+        <hlm-form-field>
+          <label for="password" hlmLabel>Password</label>
+          <input
+            [class.border-destructive]="isFieldInvalid('password')"
+            formControlName="password"
+            hlmInput
+            id="password"
+            placeholder="••••••••"
+            type="password"
+          />
+          @if (isFieldInvalid('password')) {
+            <p class="text-sm text-destructive mt-1">
+              @if (loginForm.get('password')?.errors?.['required']) {
+                La password è obbligatoria
+              }
+              @if (loginForm.get('password')?.errors?.['minlength']) {
+                La password deve essere di almeno 6 caratteri
+              }
+            </p>
+          }
+          <button
+            [disabled]="loginForm.invalid || isLoading()"
+            class="w-full mt-4 cursor-pointer"
+            hlmBtn
+            type="submit"
+          >
+            @if (isLoading()) {
+              <hlm-spinner class="mr-2"/>
+            }
+            {{ isLoading() ? 'Accesso...' : 'Accedi' }}
+          </button>
+        </hlm-form-field>
+      </form>
+    </div>
+  }
+</div>
+<hlm-toaster/>
